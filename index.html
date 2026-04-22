@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n4mEtR4n5f</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- 极简流体背景 -->
+    <div class="mesh-bg">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+        <div class="mesh-blob blob-3"></div>
+    </div>
+
+    <div class="app-wrapper">
+        <h1 class="app-title">用户名扩展生成</h1>
+
+        <!-- 悬浮命令中心 -->
+        <div class="command-center">
+            <!-- 头部输入区 -->
+            <div class="cmd-header">
+                <svg class="cmd-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
+                <div style="flex: 1; display: flex; align-items: center; position: relative;">
+                    <input type="text" id="usernameInput" placeholder="输入用户名" autocomplete="off" spellcheck="false"
+                        autofocus style="width: 100%; padding-right: 2.5rem;">
+                    <button id="clearBtn" class="btn-icon" title="清空"
+                        style="position: absolute; right: 0.5rem; opacity: 0; pointer-events: none; padding: 0.4rem;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <button id="luckyBtn" class="btn-icon" title="随机手气"
+                    style="gap: 0.5rem; padding: 0.5rem 0.8rem; font-weight: 600; font-size: 0.95rem; margin-left: 0.5rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <circle cx="15.5" cy="8.5" r="1.5"></circle>
+                        <circle cx="15.5" cy="15.5" r="1.5"></circle>
+                        <circle cx="8.5" cy="15.5" r="1.5"></circle>
+                        <circle cx="12" cy="12" r="1.5"></circle>
+                    </svg>
+                    手气不错
+                </button>
+            </div>
+
+            <!-- 原生化工具栏 -->
+            <div class="cmd-toolbar">
+                <!-- 分段选择器 (Segmented Control) -->
+                <div class="segmented-control">
+                    <input type="radio" name="leetness" id="level1" value="1">
+                    <label for="level1">L1 轻度</label>
+
+                    <input type="radio" name="leetness" id="level2" value="2" checked>
+                    <label for="level2">L2 均衡</label>
+
+                    <input type="radio" name="leetness" id="level3" value="3">
+                    <label for="level3">L3 极客</label>
+
+                    <div class="segment-indicator"></div>
+                </div>
+
+                <!-- 自动垫片拉开距离 -->
+                <div class="spacer"></div>
+
+                <div style="display: flex; gap: 1.5rem; align-items: center;">
+                    <!-- 叠字打散 Switch -->
+                    <div class="switch-group" title="强制将 555 或 ll 等连续重复字符转换为字母与数字的交替混排">
+                        <span class="switch-label" id="antiStutterLabelText">叠字混排 (555→5s5)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="antiStutterToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <!-- iOS 风格滑动开关 -->
+                    <div class="switch-group" title="开启字母波浪起伏">
+                        <span id="casingLabelText" class="switch-label">大小写波浪 (8eY0uG)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="casingToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <div class="divider-v" style="margin: 0 -0.5rem 0 0;"></div>
+
+                    <button id="dictBtn" class="btn-icon" title="映射规则字典">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 结果画板 -->
+            <div class="cmd-body" id="cmdBody">
+                <div class="cmd-stats">
+                    <span id="resultCountText">按 Enter 瞬间生成极客组合</span>
+                    <span class="cmd-hint">点击卡片直接拷贝</span>
+                </div>
+
+                <div id="resultsContainer" class="results-list">
+                    <!-- 结果项注入 -->
+                </div>
+            </div>
+        </div>
+
+        <div id="toast" class="toast hidden">已复制到剪贴板！</div>
+
+        <!-- 底部开源信息 -->
+        <footer class="app-footer">
+            <a href="https://github.com/beyoug/n4mEtR4n5f" target="_blank" title="View Source on GitHub">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                    </path>
+                </svg>
+                GitHub
+            </a>
+            <span class="dot">·</span>
+            <span>MIT License</span>
+        </footer>
+
+        <script src="script.js"></script>
+</body>
+
+</html>
